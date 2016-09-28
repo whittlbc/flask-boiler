@@ -83,6 +83,7 @@ def auth_before_filter(f):
 	return decorated
 
 
+# Route with before filters
 @app.route('/with_before_filter')
 @before_filter
 @auth_before_filter

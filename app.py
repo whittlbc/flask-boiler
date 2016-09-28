@@ -1,20 +1,23 @@
+import os
 from flask import Flask
 from flask import jsonify
 from flask import request
 from functools import wraps
 from utils import logger
 
+# Create Flask app
 app = Flask(__name__)
+
+# import config vars
+app.config.from_object(os.environ['APP_SETTINGS'])
+
+# Create logger: (Ex: logger.info, logger.warning, logger.error)
 logger = logger.get_logger(app)
 
 
 # Home page route
 @app.route('/')
 def index():
-	logger.info('informing')
-	logger.warning('warning')
-	logger.error('screaming bloody murder!')
-	
 	return "Home"
 
 
@@ -88,4 +91,4 @@ def with_before_filter():
 
 
 if __name__ == '__main__':
-	app.run(debug = True) # make this true only for development. use some env var. to determine that.
+	app.run(debug = app.config['DEBUG'])
